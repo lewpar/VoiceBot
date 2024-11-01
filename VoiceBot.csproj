@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="OpenAI" Version="1.11.0" />
+    <PackageReference Include="PiperSharp" Version="1.0.5" />
     <PackageReference Include="Quickenshtein" Version="1.5.1" />
     <PackageReference Include="System.Speech" Version="8.0.0" />
     <PackageReference Include="Whisper.net" Version="1.5.0" />

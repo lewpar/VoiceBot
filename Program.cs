@@ -1,4 +1,5 @@
-﻿using VoiceBot.Environment;
+﻿using PiperSharp;
+using VoiceBot.IO;
 using VoiceBot.Services;
 using VoiceBot.Services.Local;
 using VoiceBot.Services.Remote;
@@ -9,17 +10,22 @@ internal class Program
 {
     static async Task Main(string[] args)
     {
-        DotEnv.Ensure("OPENAI_API_KEY");
+        DotEnv.Load(Environment.CurrentDirectory);
+        //DotEnv.Ensure("OPENAI_API_KEY");
 
         var recorder = new NAudioVoiceRecorder();
         //var speaker = new VoiceSpeaker(DotEnv.Get("OPENAI_API_KEY"));
-        var speaker = new PiperTextToSpeech();
+        ITextToSpeech speaker = new PiperTextToSpeech("en_GB-alba-medium");
         var transcriber = new WhisperTranscriber("ggml-medium.bin");
         //var completion = new OpenAICompletion(Model.ChatGPTTurbo, apiKey);
         var completion = new LlamaCompletion("llama3.2-kangan", DotEnv.Get("OLLAMA_API_ENDPOINT"));
 
         await transcriber.InitAsync();
+        await speaker.InitAsync();
 
+        await speaker.SpeakAsync("Hello World! This is an example of a really long sentence. I am testing text to speech locally.");
+
+        return;
         while (true)
         {
             Console.WriteLine();

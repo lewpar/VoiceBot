@@ -6,7 +6,7 @@ using OpenAI_API.Models;
 
 namespace VoiceBot.Services.Remote;
 
-public class OpenAITextToSpeech : ITextToSpeech, IDisposable
+public class OpenAITextToSpeech : ITextToSpeech
 {
     public bool IsSpeaking { get; private set; }
 
@@ -42,8 +42,8 @@ public class OpenAITextToSpeech : ITextToSpeech, IDisposable
         }
     }
 
-    public void Dispose()
+    public Task InitAsync()
     {
-        throw new NotImplementedException();
+        return Task.CompletedTask;
     }
 }

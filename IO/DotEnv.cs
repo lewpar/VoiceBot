@@ -1,4 +1,4 @@
-﻿namespace VoiceBot;
+﻿namespace VoiceBot.IO;
 
 public class DotEnv
 {
