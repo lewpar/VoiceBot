@@ -11,14 +11,12 @@ internal class Program
     {
         DotEnv.Ensure("OPENAI_API_KEY");
 
-        var apiKey = DotEnv.Get("OPENAI_API_KEY");
-
         var recorder = new NAudioVoiceRecorder();
-        //var speaker = new VoiceSpeaker(apiKey);
+        //var speaker = new VoiceSpeaker(DotEnv.Get("OPENAI_API_KEY"));
         var speaker = new PiperTextToSpeech();
         var transcriber = new WhisperTranscriber("ggml-medium.bin");
         //var completion = new OpenAICompletion(Model.ChatGPTTurbo, apiKey);
-        var completion = new LlamaCompletion("llama3.2-kangan", "http://192.168.0.102:11434/api");
+        var completion = new LlamaCompletion("llama3.2-kangan", DotEnv.Get("OLLAMA_API_ENDPOINT"));
 
         await transcriber.InitAsync();
 
