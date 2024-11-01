@@ -1,5 +1,4 @@
-﻿using PiperSharp;
-using VoiceBot.IO;
+﻿using VoiceBot.IO;
 using VoiceBot.Services;
 using VoiceBot.Services.Local;
 using VoiceBot.Services.Remote;
@@ -23,9 +22,6 @@ internal class Program
         await transcriber.InitAsync();
         await speaker.InitAsync();
 
-        await speaker.SpeakAsync("Hello World! This is an example of a really long sentence. I am testing text to speech locally.");
-
-        return;
         while (true)
         {
             Console.WriteLine();
