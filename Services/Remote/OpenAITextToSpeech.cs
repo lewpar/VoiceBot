@@ -4,16 +4,16 @@ using OpenAI_API;
 using OpenAI_API.Audio;
 using OpenAI_API.Models;
 
-namespace VoiceBot;
+namespace VoiceBot.Services.Remote;
 
-public class VoiceSpeaker : IVoiceSpeaker, IDisposable
+public class OpenAITextToSpeech : ITextToSpeech, IDisposable
 {
     public bool IsSpeaking { get; private set; }
 
     private OpenAIAPI api;
     private WaveOutEvent waveOut;
 
-    public VoiceSpeaker(string apiKey)
+    public OpenAITextToSpeech(string apiKey)
     {
         api = new OpenAIAPI(apiKey);
 

@@ -1,10 +1,11 @@
 ﻿using OpenAI_API;
 using OpenAI_API.Chat;
 using OpenAI_API.Models;
+using VoiceBot.Services;
 
-namespace VoiceBot;
+namespace VoiceBot.Services.Remote;
 
-public class OpenAICompletion : IChatCompletion
+public class OpenAICompletion : ITextCompletion
 {
     private OpenAIAPI api;
     private Conversation chat;

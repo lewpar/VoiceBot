@@ -3,9 +3,9 @@ using System.Text;
 using Whisper.net.Ggml;
 using Whisper.net;
 
-namespace VoiceBot;
+namespace VoiceBot.Services.Local;
 
-public class VoiceTranscribe
+public class WhisperTranscriber
 {
     private StringBuilder sb;
 
@@ -14,7 +14,7 @@ public class VoiceTranscribe
 
     private string model;
 
-    public VoiceTranscribe(string model)
+    public WhisperTranscriber(string model)
     {
         sb = new StringBuilder();
         this.model = model;
@@ -38,7 +38,7 @@ public class VoiceTranscribe
 
     public async Task<string> TranscribeAsync(Stream audioStream)
     {
-        if(processor is null)
+        if (processor is null)
         {
             throw new Exception("You need to call InitAsync before transcribing.");
         }

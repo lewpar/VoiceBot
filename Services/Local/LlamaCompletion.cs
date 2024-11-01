@@ -1,16 +1,16 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json.Serialization;
 
-namespace VoiceBot;
+namespace VoiceBot.Services.Local;
 
-public class LocalCompletion : IChatCompletion
+public class LlamaCompletion : ITextCompletion
 {
     private HttpClient _httpClient;
 
     private string model;
     private string apiUrl;
 
-    public LocalCompletion(string model, string apiUrl)
+    public LlamaCompletion(string model, string apiUrl)
     {
         _httpClient = new HttpClient();
 
@@ -28,13 +28,13 @@ public class LocalCompletion : IChatCompletion
         };
 
         var response = await _httpClient.PostAsJsonAsync($"{apiUrl}/generate", request);
-        if(!response.IsSuccessStatusCode)
+        if (!response.IsSuccessStatusCode)
         {
             throw new Exception($"Failed to generate completion: Received status code '{response.StatusCode}'.");
         }
 
         var completion = await response.Content.ReadFromJsonAsync<LocalCompletionResponse>();
-        if(completion is null)
+        if (completion is null)
         {
             throw new Exception("Failed to deserialize completion result.");
         }

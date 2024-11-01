@@ -1,9 +1,9 @@
 ﻿using NAudio.Utils;
 using NAudio.Wave;
 
-namespace VoiceBot;
+namespace VoiceBot.Services.Local;
 
-public class VoiceRecord : IDisposable
+public class NAudioVoiceRecorder : IDisposable
 {
     public bool IsRecording { get; private set; }
     public MemoryStream? Stream { get; private set; }
@@ -28,7 +28,7 @@ public class VoiceRecord : IDisposable
         int detectVoiceCutoffSeconds = 3;
         bool sampled = false;
 
-        if(detectVoiceEnd)
+        if (detectVoiceEnd)
         {
             later = DateTime.Now.AddSeconds(detectVoiceCutoffSeconds);
         }
@@ -37,18 +37,18 @@ public class VoiceRecord : IDisposable
         {
             var now = DateTime.Now;
 
-            if(detectVoiceEnd)
+            if (detectVoiceEnd)
             {
                 short noiseGate = 600;
                 short sample = Math.Abs(BitConverter.ToInt16(e.Buffer));
 
-                if(sample > noiseGate)
+                if (sample > noiseGate)
                 {
                     sampled = true;
                     later = DateTime.Now.AddSeconds(detectVoiceCutoffSeconds);
                 }
 
-                if(now > later)
+                if (now > later)
                 {
                     waveIn.StopRecording();
                 }
@@ -75,7 +75,7 @@ public class VoiceRecord : IDisposable
 
         waveIn.StartRecording();
 
-        while(IsRecording)
+        while (IsRecording)
         {
             await Task.Delay(100);
         }

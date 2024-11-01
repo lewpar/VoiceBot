@@ -1,4 +1,8 @@
-﻿namespace VoiceBot;
+﻿using VoiceBot.Services;
+using VoiceBot.Services.Local;
+using VoiceBot.Services.Remote;
+
+namespace VoiceBot;
 
 internal class Program
 {
@@ -8,12 +12,12 @@ internal class Program
 
         var apiKey = DotEnv.Get("OPENAI_API_KEY");
 
-        var recorder = new VoiceRecord();
+        var recorder = new NAudioVoiceRecorder();
         //var speaker = new VoiceSpeaker(apiKey);
-        var speaker = new LocalVoiceSpeaker();
-        var transcriber = new VoiceTranscribe("ggml-medium.bin");
+        var speaker = new PiperTextToSpeech();
+        var transcriber = new WhisperTranscriber("ggml-medium.bin");
         //var completion = new OpenAICompletion(Model.ChatGPTTurbo, apiKey);
-        var completion = new LocalCompletion("llama3.2-kangan", "http://192.168.0.102:11434/api");
+        var completion = new LlamaCompletion("llama3.2-kangan", "http://192.168.0.102:11434/api");
 
         await transcriber.InitAsync();
 
